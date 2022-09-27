@@ -48,7 +48,7 @@ export default function Navbar(props) {
 								id="flexSwitchCheckDefault"
 							/>
 							<label
-								className="form-check-label"
+								className="form-check-label mx-3"
 								htmlFor="flexSwitchCheckDefault"
 							>
 								Enable Gray Mode
