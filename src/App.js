@@ -1,12 +1,13 @@
 import "./App.css";
-// import About from "./Components/About";
+import About from "./Components/About";
 import Navbar from "./Components/Navbar";
 import Textform from "./Components/TextForm";
 import React, { useState } from "react";
 import Alert from "./Components/Alert";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 function App() {
 	const [mode, setMode] = useState("light"); // Whether dark mode is enabled or not
-	const [grayMode, setGrayMode] = useState("light"); // Whether dark mode is enabled or not
 	const [alert, setAlert] = useState(null);
 	const showAlert = (message, type) => {
 		setAlert({
@@ -30,35 +31,39 @@ function App() {
 			document.title = "TextUtils - Light Mode";
 		}
 	};
-	const toggleGrayMode = () => {
-		if (mode === "light") {
-			setGrayMode("gray");
-			document.body.style.backgroundColor = "gray";
-			showAlert("Gray Mode has been enabled", "success");
-		} else {
-			setGrayMode("light");
-			document.body.style.backgroundColor = "white";
-			showAlert("Light Mode has been enabled", "success");
-		}
-	};
 	return (
 		<>
-			<Navbar
-				title="TextUtils"
-				mode={mode}
-				toggleMode={toggleMode}
-				toggleGrayMode={toggleGrayMode}
-			/>
-			<Alert alert={alert} />
-			<div className="container my-3">
-				<Textform
-					heading="Enter the text to analyze below"
-					mode={mode}
-					grayMode={grayMode}
-					showAlert={showAlert}
-				/>
-				{/* <About /> */}
-			</div>
+			<BrowserRouter>
+				<Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+				<Alert alert={alert} />
+				<div className="container my-3">
+					<Routes>
+						<Route
+							exact
+							path="/"
+							element={
+								<Textform
+									heading="Enter the text to analyze below"
+									mode={mode}
+									showAlert={showAlert}
+								/>
+							}
+						/>
+						<Route
+							exact
+							path="/TextForm"
+							element={
+								<Textform
+									heading="Enter the text to analyze below"
+									mode={mode}
+									showAlert={showAlert}
+								/>
+							}
+						/>
+						<Route path="About" element={<About />} />
+					</Routes>
+				</div>
+			</BrowserRouter>
 		</>
 	);
 }
