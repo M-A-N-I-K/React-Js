@@ -25,6 +25,7 @@ export default function Textform(props) {
 		var text = document.getElementById("myBox");
 		text.select();
 		navigator.clipboard.writeText(text.value);
+		document.getSelection().removeAllRanges();
 		props.showAlert("Copied to Clipboard", "success");
 	};
 	const handleExtraSpaces = () => {
@@ -56,19 +57,39 @@ export default function Textform(props) {
 						onChange={handleOnChange}
 					></textarea>
 				</div>
-				<button className="btn btn-primary mx-3" onClick={handleUpClick}>
+				<button
+					disabled={text.length === 0}
+					className="btn btn-primary mx-3 my-1"
+					onClick={handleUpClick}
+				>
 					Convert to Uppercase
 				</button>
-				<button className="btn btn-primary mx-3" onClick={handleLoClick}>
+				<button
+					disabled={text.length === 0}
+					className="btn btn-primary mx-3 my-1"
+					onClick={handleLoClick}
+				>
 					Convert to Lowercase
 				</button>
-				<button className="btn btn-primary mx-3" onClick={handleClear}>
+				<button
+					disabled={text.length === 0}
+					className="btn btn-primary mx-3 my-1"
+					onClick={handleClear}
+				>
 					Clear Text
 				</button>
-				<button className="btn btn-primary mx-3" onClick={handleCopy}>
+				<button
+					disabled={text.length === 0}
+					className="btn btn-primary mx-3 my-1"
+					onClick={handleCopy}
+				>
 					Copy To Clipboard
 				</button>
-				<button className="btn btn-primary" onClick={handleExtraSpaces}>
+				<button
+					disabled={text.length === 0}
+					className="btn btn-primary my-1"
+					onClick={handleExtraSpaces}
+				>
 					Remove Extra Spaces
 				</button>
 			</div>
